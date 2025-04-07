@@ -7,6 +7,7 @@ import firebase_admin
 from firebase_admin import credentials, firestore
 from google.cloud import secretmanager
 
+
 # Initialize logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -139,9 +140,9 @@ def webhook():
                 if len(results) >= 5:
                     break
         except Exception as e:
-            logger.exception("❌ Firestore query failed")
+            logger.exception("Firestore query failed")
 
-        logger.info(f"🔎 Found {len(results)} matching jobs for user {chat_id}")
+        logger.info(f"Found {len(results)} matching jobs for user {chat_id}")
 
         if results:
             msg = "Here are some job matches:\n\n"
@@ -174,9 +175,9 @@ def send_message(chat_id, text):
     try:
         response = requests.post(url, json=payload)
         if response.status_code != 200:
-            logger.error(f"❌ Telegram message failed: {response.status_code} - {response.text}")
+            logger.error(f"Telegram message failed: {response.status_code} - {response.text}")
     except Exception as e:
-        logger.exception("❌ Telegram request raised an exception")
+        logger.exception("Telegram request raised an exception")
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
